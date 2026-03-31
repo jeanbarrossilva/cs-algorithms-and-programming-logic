@@ -5,10 +5,12 @@ on:
   pull_request:
     branches: [ 'main' ]
 jobs:
-  build:
-    runs-on: macos-latest
+  test:
+    runs-on: macos-26
     steps:
     - uses: actions/checkout@v4
+    - name: Select Xcode
+      run: sudo xcode-select --switch /Applications/Xcode_26.4.app
     - name: Build
       run: swift build --verbose
     - name: Test
