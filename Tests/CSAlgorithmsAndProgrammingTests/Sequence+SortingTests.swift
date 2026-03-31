@@ -24,8 +24,8 @@ import Testing
 struct SequenceSortingTests {
   @Test
   func bubbleSorts() {
-    var collection = [4, 5, 2, 8, 9, 3, 6, 7, 1]
-    collection.bubbleSort(by: <)
-    #expect(collection.elementsEqual(1..<10))
+    var A = Array(stride(from: 8, through: 1, by: -1))
+    A.bubbleSort(by: <)
+    #expect(A.elementsEqual(1..<9))
   }
 }
