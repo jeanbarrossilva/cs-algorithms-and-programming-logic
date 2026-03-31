@@ -37,24 +37,24 @@ where Self: BidirectionalCollection, Self: MutableCollection {
   ///   sorted. This closure returning `false` indicates to the algorithm that
   ///   both elements should be swaped.
   mutating func bubbleSort(by areInOrder: (Element, Element) -> Bool) {
-    var wasAlreadySorted = true
+    var didSwap = false
     for i in indices[..<indices.index(before: indices.endIndex)] {
-      let J = indices[indices.index(after: i)...]
-      for j in J {
+      for j in indices[indices.index(after: i)...] {
         let a = self[i]
         let b = self[j]
         if areInOrder(a, b) {
           continue
-        } else if wasAlreadySorted && i == indices.first && j == J.last {
-          // We have iterated over the entire collection exactly one time, and
-          // no element was swapped. This means that the collection is already
-          // sorted; we can skip the other n² - 1 iterations and return early.
-          return
         } else {
           self[i] = b
           self[j] = a
-          wasAlreadySorted = false
+          didSwap = true
         }
+      }
+      guard didSwap else {
+        // We have iterated over the entire collection exactly one time, and no
+        // element was swapped. This means that the collection is already
+        // sorted; we can skip the other n² - 1 iterations.
+        return
       }
     }
   }
