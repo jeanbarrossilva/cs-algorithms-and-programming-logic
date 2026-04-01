@@ -37,6 +37,7 @@ where Self: MutableCollection, Indices: BidirectionalCollection {
   ///   sorted. This closure returning `false` indicates to the algorithm that
   ///   both elements should be swapped.
   mutating func bubbleSort(by areInOrder: (Element, Element) -> Bool) {
+    guard count > 1 else { return }
     var didSwapInLastIteration = false
     let indexOfSecondIndex = indices.index(after: indices.startIndex)
     var indexOfSortingEndIndex = indices.index(before: indices.endIndex)
