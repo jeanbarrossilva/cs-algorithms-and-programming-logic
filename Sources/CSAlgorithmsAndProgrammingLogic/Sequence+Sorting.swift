@@ -22,9 +22,9 @@ where Self: BidirectionalCollection, Self: MutableCollection {
   /// Sorts this collection using the bubble sort algorithm.
   ///
   /// Bubble sort is one of the simplest algorithms for sorting elements of a
-  /// collection — and the most inefficient one: given *n* elements, the time
-  /// complexity will be O(*n*) if the collection is already sorted; otherwise,
-  /// O(*n*²).
+  /// collection — and may be one of the most inefficient: given *n* elements,
+  /// the time complexity will be, at best, O(*n*) if the collection is already
+  /// sorted; otherwise, O(*n*²).
   ///
   /// Every element at index *i* in this collection will be compared to each of
   /// those by which it is succeeded, and swapped with such successor in case
@@ -42,17 +42,18 @@ where Self: BidirectionalCollection, Self: MutableCollection {
       for j in indices[indices.index(after: i)...] {
         let a = self[i]
         let b = self[j]
-        guard !areInOrder(a, b) else { continue }
+        if areInOrder(a, b) { continue }
         self[i] = b
         self[j] = a
         didSwap = true
       }
-      guard didSwap else {
-        // We have iterated over the entire collection exactly one time, and no
-        // element was swapped. This means that the collection is already
-        // sorted; we can skip the other n² + i - 1 iterations.
-        break
-      }
+      if didSwap { continue }
+
+      // Given J as the set of indices jₘ and 0 ≤ m < n - 1, we have performed p
+      // iterations and no element was swapped, where p = (i + 1) × |J|. This
+      // means that the collection is already sorted; we can skip the other
+      // n² - p iterations.
+      break
     }
   }
 }
