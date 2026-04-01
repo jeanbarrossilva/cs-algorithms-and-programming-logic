@@ -20,12 +20,11 @@
 @testable import CSAlgorithmsAndProgrammingLogic
 import Testing
 
-@Suite("Sequence+Sorting tests")
-struct SequenceSortingTests {
+struct SearchTests {
   @Test
-  func bubbleSorts() {
-    var A = Array(stride(from: 8, through: 1, by: -1))
-    A.bubbleSort(by: <)
-    #expect(A.elementsEqual(1..<9))
+  func binarySearches() {
+    let A = [Int](count: 64) { index in (index + 1) * 2 }
+    #expect(A.binarySearch(forIndexOf: 0) == nil)
+    #expect(A.binarySearch(forIndexOf: 2) == A.startIndex)
   }
 }
