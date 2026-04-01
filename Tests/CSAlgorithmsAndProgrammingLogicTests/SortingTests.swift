@@ -27,14 +27,14 @@ struct SortingTests {
   @Test
   func bubbleSorts() {
     var B = A
-    B.bubbleSort(by: <)
+    B.bubbleSort()
     #expect(B.elementsEqual(E))
   }
 
   @Test
   func selectionSorts() {
     var B = A
-    B.selectionSort(by: <)
+    B.selectionSort()
     #expect(B.elementsEqual(E))
   }
 }
